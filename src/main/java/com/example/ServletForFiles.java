@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.UsersManagment.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +19,18 @@ public class ServletForFiles extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User user = (User) req.getSession().getAttribute("user");
+        if (user == null) {
+            resp.sendRedirect("login");
+            return;
+        }
+        String userRoot = "C:\\Users\\Алексей\\File_manager\\" + user.getLogin();
         String path = req.getParameter("path");
+
+        if (path == null || !path.startsWith(userRoot)) {
+            path = userRoot;
+        }
+
         File file = new File(path);
 
         Path filePath = Paths.get(path);

@@ -22,6 +22,8 @@
     String parentPath = (String) request.getAttribute("parentPath");
     if (parentPath != null) {
 %>
+    <a href="logout" style="float: right;">Выйти</a>
+
     <a href="?path=<%= parentPath %>" class="parent-link">⬆ Вверх</a>
 <%
     }
