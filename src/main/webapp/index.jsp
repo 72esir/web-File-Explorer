@@ -19,6 +19,10 @@
 <h1 class="typewriter">${path}</h1>
 <hr />
 
+<form action="logout" method="post">
+        <button type="submit">Выход</button>
+</form>
+
 <form style="display: ${directoryVisibilityOnTop};" action="./main-servlet" method="get">
     <button type="submit" name="path" value="${backToParent}">
         <span>⬆  Назад</span>
@@ -32,21 +36,23 @@
         <th style="padding: 0 100px 0 100px;">Дата</th>
     </tr>
 
-    <form action="./main-servlet" method="get">
-        <c:forEach var="directory" items="${directories}">
-            <tr>
-                <td >
-                    <button type="submit" name="path" value="${directory.getAbsolutePath()}">
-                        <span>📁 ${directory.getName()}</span>
-                    </button>
-                </td>
-                <td></td>
-                <td>
-              <span>${Files.getAttribute(directory.toPath(),"lastModifiedTime").toString()}</span>
-                </td>
-            </tr>
-        </c:forEach>
-    </form>
+    <c:forEach var="directory" items="${directories}">
+        <tr>
+            <td>
+                <form action="main-servlet" method="get" style="display:inline;">
+                    <input type="hidden" name="path" value="${directory.getAbsolutePath()}" />
+                    <button type="submit">📁 ${directory.getName()}</button>
+                </form>
+            </td>
+            <td></td>
+            <td>
+                <span>
+                    <%= Files.getAttribute(((File) pageContext.getAttribute("directory")).toPath(), "lastModifiedTime").toString() %>
+                </span>
+            </td>
+        </tr>
+    </c:forEach>
+
 
     <form action="./main-servlet/download" method="get">
         <c:forEach var="file" items="${files}">
@@ -66,9 +72,6 @@
         </c:forEach>
     </form>
 
-    <form action="logout" method="post">
-        <button type="submit">Выход</button>
-    </form>
 </table>
 </body>
 </html>

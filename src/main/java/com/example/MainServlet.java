@@ -39,7 +39,7 @@ public class MainServlet extends HttpServlet {
         // Проверка доступа пользователя к текущей директории
         if (!hasAccessToDirectory(username, path)) {
             // Если пользователь не имеет доступа, перенаправить его на страницу своей "домашней папки"
-            String homeDirectory = "c:/Users/Алексей/File_manager/" + username; // Путь к домашней папке пользователя
+            String homeDirectory = "c:\\Users\\Алексей\\File_manager\\" + username; // Путь к домашней папке пользователя
             resp.sendRedirect("main-servlet?path=" + URLEncoder.encode(homeDirectory, StandardCharsets.UTF_8.toString()));
             return;
         }
@@ -60,21 +60,26 @@ public class MainServlet extends HttpServlet {
     }
 
     private boolean hasAccessToDirectory(String username, String directoryPath) {
-        String userHomeDirectory = "c:/Users/Алексей/File_manager/" + username;
+        String userHomeDirectory = "c:\\Users\\Алексей\\File_manager\\" + username;
         return directoryPath.startsWith(userHomeDirectory);
     }
 
     private static String getCurrentPath(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String path = req.getParameter("path");
+        System.out.println("Вход | Путь от кнопки: " + req.getParameter("path"));
         if (path == null) {
             path = System.getProperty("user.dir");
             resp.sendRedirect(String.format("%s%s?path=%s",
                     req.getContextPath(),
                     req.getServletPath(),
                     URLEncoder.encode(path, StandardCharsets.UTF_8.toString())));
+            System.out.println("Null |  Путь от кнопки: " + req.getParameter("path"));
+
             return null;
         }
         req.setAttribute("path", path);
+        System.out.println("Выход | Путь от кнопки: " + req.getParameter("path"));
+
         return path;
     }
 
