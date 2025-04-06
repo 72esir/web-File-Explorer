@@ -18,6 +18,17 @@ import java.util.List;
 //@WebServlet(urlPatterns = {"/main-servlet"})
 public class MainServlet extends HttpServlet {
     @Override
+    public void init() throws ServletException {
+        try {
+            System.out.println("MainServlet init() called");
+            JavaDB.initializeDatabase();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ServletException("Failed to initialize database", e);
+        }
+    }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
 
