@@ -1,7 +1,5 @@
 package com.example;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +13,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-//@WebServlet(urlPatterns = {"/main-servlet"})
 public class MainServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
