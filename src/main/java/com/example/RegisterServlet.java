@@ -7,9 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,19 +25,19 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String email = request.getParameter("email");
 
-        try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
-            if (registerUser(conn, username, password, email)) {
-                HttpSession session = request.getSession();
-                session.setAttribute("username", username);
-                response.sendRedirect("login.jsp");
-            } else {
-                response.sendRedirect("register.jsp?error=1");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        JavaDB.addToDB(username, password);
+        response.sendRedirect("login.jsp");
+        //Map<String, String> userDatabase = UserDataManager.getUserDatabase();
+
+        /*if (registerUser(userDatabase, username, password, email)) {
+            HttpSession session = request.getSession();
+            session.setAttribute("username", username);
+
+            response.sendRedirect("login.jsp");
+        } else {
+            response.sendRedirect("register.jsp");
+        }*/
     }
 
     private boolean registerUser(Connection conn, String username, String password, String email) throws SQLException {

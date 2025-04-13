@@ -20,9 +20,9 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        Map<String, String> userDatabase = UserDataManager.getUserDatabase();
+        //Map<String, String> userDatabase = UserDataManager.getUserDatabase();
 
-        if (authenticate(userDatabase, username, password)) {
+        if (JavaDB.existInDB(username,password)){
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
 
@@ -30,6 +30,14 @@ public class LoginServlet extends HttpServlet {
         } else {
             response.sendRedirect("login.jsp?error=1");
         }
+        /*if (authenticate(userDatabase, username, password)) {
+            HttpSession session = request.getSession();
+            session.setAttribute("username", username);
+
+            response.sendRedirect("main-servlet");
+        } else {
+            response.sendRedirect("login.jsp?error=1");
+        }*/
     }
 
     private boolean authenticate(Map<String, String> userDatabase, String username, String password) {

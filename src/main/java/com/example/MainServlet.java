@@ -19,12 +19,8 @@ import java.util.List;
 public class MainServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
-        try {
-            System.out.println("MainServlet init() called");
-            JavaDB.initializeDatabase();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ServletException("Failed to initialize database", e);
+        if (!JavaDB.existTable()){
+            JavaDB.createTable();
         }
     }
 
