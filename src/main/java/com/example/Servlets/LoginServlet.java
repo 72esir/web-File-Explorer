@@ -1,5 +1,6 @@
 package com.example.Servlets;
-import com.example.dbService.JavaDB;
+
+import com.example.dbService.DAO.UserDAOImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +18,9 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        if (JavaDB.existInDB(username,password)){
+        UserDAOImpl userDAO = new UserDAOImpl();
+
+        if (userDAO.validateUser(username, password)){
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
 

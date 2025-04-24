@@ -6,39 +6,37 @@ import org.hibernate.annotations.NaturalId;
 @Entity
 @Table(name = "users")
 public class User {
+    public User(){}
+
+    public User(String name, String pass){
+        this.username = name;
+        this.password = pass;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NaturalId
     @Column(name = "username", unique = true, nullable = false)
-    private String name;
+    private String username;
 
     @Column(name = "password", nullable = false)
-    private long password;
+    private String password;
 
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
-        return name;
+        return username;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.username = name;
     }
 
-    public long getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(long password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 }

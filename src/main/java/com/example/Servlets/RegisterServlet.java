@@ -1,6 +1,7 @@
 package com.example.Servlets;
 
-import com.example.dbService.JavaDB;
+import com.example.dbService.DAO.UserDAOImpl;
+import com.example.dbService.Entities.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +19,9 @@ public class RegisterServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        JavaDB.addToDB(username, password);
+        UserDAOImpl userDAO = new UserDAOImpl();
+
+        userDAO .createUser(new User(username, password));
         response.sendRedirect("login.jsp");
     }
 }

@@ -1,14 +1,17 @@
 package com.example.dbService;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.*;
 public class JavaDB {
-    private static final String url = "jdbc:postgresql://localhost:5432/webFileExplorerDb";
-    private static final String user = "postgres";
-    private static final String pass = "";
+    static Dotenv dotenv = Dotenv.load();
+
+    private static final String url = dotenv.get("URL");
+    private static final String user = dotenv.get("USER");
+    private static final String pass = dotenv.get("PASS");
 
     public static void createTable(){
         String createQuery = "CREATE TABLE users (\n" +
