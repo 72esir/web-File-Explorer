@@ -1,4 +1,6 @@
-package com.example;
+package com.example.Servlets;
+
+import com.example.dbService.JavaDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
