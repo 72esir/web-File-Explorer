@@ -13,11 +13,6 @@ public class UserDAOImpl implements UserDAO{
     }
 
     @Override
-    public User findById(long id) {
-        return null;
-    }
-
-    @Override
     public void createUser(User user) {
         try(Session session = factory.openSession()){
             session.beginTransaction();
@@ -28,7 +23,7 @@ public class UserDAOImpl implements UserDAO{
         }
     }
 
-    public User getUser(String username) {
+    private User getUser(String username) {
         User user = null;
         try (Session session = factory.openSession()) {
             System.out.println("username = " + username);
@@ -40,6 +35,7 @@ public class UserDAOImpl implements UserDAO{
         return user;
     }
 
+    @Override
     public boolean validateUser(String username, String password) {
         System.out.println(username);
         try {
