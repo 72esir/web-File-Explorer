@@ -1,4 +1,5 @@
-package com.example;
+package com.example.Servlets;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,12 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainServlet extends HttpServlet {
-    @Override
-    public void init() throws ServletException {
-        if (!JavaDB.existTable()){
-            JavaDB.createTable();
-        }
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
