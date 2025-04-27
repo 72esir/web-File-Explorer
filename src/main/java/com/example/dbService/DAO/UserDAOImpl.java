@@ -9,7 +9,7 @@ public class UserDAOImpl implements UserDAO{
     private SessionFactory factory;
 
     public UserDAOImpl(){
-        factory = new Configuration().configure().buildSessionFactory();
+        factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     }
 
     @Override
